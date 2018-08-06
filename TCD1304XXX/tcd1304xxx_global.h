@@ -1,0 +1,12 @@
+#ifndef TCD1304XXX_GLOBAL_H
+#define TCD1304XXX_GLOBAL_H
+
+#include <QtCore/qglobal.h>
+
+#if defined(TCD1304XXX_LIBRARY)
+#  define TCD1304XXXSHARED_EXPORT Q_DECL_EXPORT
+#else
+#  define TCD1304XXXSHARED_EXPORT Q_DECL_IMPORT
+#endif
+
+#endif // TCD1304XXX_GLOBAL_H
