@@ -3,9 +3,7 @@
 
 #include <QObject>
 #include <QDebug>
-
 #include <math.h>
-
 
 
 class Q_DECL_EXPORT PloyFit : public QObject

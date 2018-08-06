@@ -2,7 +2,6 @@
 #define FILTER_H
 
 #include <QObject>
-#include <QDebug>
 #include "windowfilter.h"
 
 class Q_DECL_EXPORT Filter : public QObject

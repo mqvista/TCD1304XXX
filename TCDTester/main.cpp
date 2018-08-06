@@ -7,15 +7,15 @@
 int main(int argc, char *argv[])
 {
     QCoreApplication a(argc, argv);
-    //QTimer timer = new QTimer(this);
-    //QObject::connect(timer, &QTimer::timeout, this, )
 
 
     double length;
     TCD1304XXX tcd;
-    qDebug() << tcd.OpenDevice(0);
-    qDebug() << tcd.SetIntergral(6);
-    //tcd.setRawDataFilterFlag(true);
+    // 开启设备
+    tcd.OpenDevice(0);
+    // 设定积分时间
+    tcd.SetIntergral(6);
+    // 开启滤波
     tcd.setPloyDataFilterFlag(true);
 
 
@@ -23,12 +23,13 @@ int main(int argc, char *argv[])
     qDebug() << "length" << length;
     while (1)
     {
+        // 获取数据
         if(tcd.GetPolyData(&length))
             qDebug() << false;
         qDebug() << "length" << length;
     }
 
-
+    // 关闭设备
     tcd.CloseDevice();
     return a.exec();
 }
