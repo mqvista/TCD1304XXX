@@ -4,7 +4,7 @@
 #include <QObject>
 #include "D2XX/include/ftd2xx.h"
 
-class FtDriver : public QObject
+class Q_DECL_EXPORT FtDriver : public QObject
 {
     Q_OBJECT
 public:

@@ -8,7 +8,7 @@
 
 
 
-class PloyFit : public QObject
+class Q_DECL_EXPORT PloyFit : public QObject
 {
     Q_OBJECT
 public:
