@@ -16,15 +16,15 @@ public:
     // If you are in running loop ,it will send the intergral time
     // after current cycle
     // Param1 intergral time from 1~100
-    bool SetIntergral(const quint8 value);
+    __stdcall bool SetIntergral(const quint8 value);
     // Get raw senser data
     // Param1 data[3648]
-    bool GetRawData(quint16* data);
+    __stdcall bool GetRawData(quint16* data);
     // Get the pixels after poly
-    bool GetPolyData(double* pixels);
+    __stdcall bool GetPolyData(double* pixels);
     // Set to enable or disable filter
-    void setRawDataFilterFlag(bool flag);
-    void setPloyDataFilterFlag(bool flag);
+    __stdcall void setRawDataFilterFlag(bool flag);
+    __stdcall void setPloyDataFilterFlag(bool flag);
 
 
 private:
