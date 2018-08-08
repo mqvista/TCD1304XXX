@@ -60,8 +60,16 @@ DEPENDPATH += $$PWD/D2XX/include/
 # include for GNU Scientific Library
 macx: LIBS += -L$$PWD/GSL/mac/lib/ -lgsl.23
 macx: LIBS += -L$$PWD/GSL/mac/lib/ -lgslcblas
-win32: LIBS += -L$$PWD/GSL/win/lib/ -llibgsl
-win32: LIBS += -L$$PWD/GSL/win/lib/ -llibgslcblas
+# for windows
+contains(QT_ARCH, i386) {
+    message("32-bit")
+    LIBS += -L$$PWD/GSL/win32/lib/ -lgsl
+    LIBS += -L$$PWD/GSL/win32/lib/ -lgslcblas
+}else {
+    message("64-bit")
+    LIBS += -L$$PWD/GSL/win/lib/ -llibgsl
+    LIBS += -L$$PWD/GSL/win/lib/ -llibgslcblas
+}
 
 INCLUDEPATH += $$PWD/GSL/include/
 DEPENDPATH += $$PWD/GSL/include/
