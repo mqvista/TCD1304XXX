@@ -24,9 +24,10 @@ int main(int argc, char *argv[])
     while (1)
     {
         // 获取数据
-        if(tcd.GetPolyData(&length))
+        if(!tcd.GetPolyData(&length))
             qDebug() << false;
-        qDebug() << "length" << length;
+        else
+            qDebug() << "length" << length;
     }
 
     // 关闭设备
