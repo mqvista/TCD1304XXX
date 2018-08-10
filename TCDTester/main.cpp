@@ -1,4 +1,4 @@
-#include <QCoreApplication>
+﻿#include <QCoreApplication>
 #include <QDebug>
 #include <QTimer>
 #include "tcd1304xxx.h"
@@ -33,3 +33,4 @@ int main(int argc, char *argv[])
     tcd.CloseDevice();
     return a.exec();
 }
+

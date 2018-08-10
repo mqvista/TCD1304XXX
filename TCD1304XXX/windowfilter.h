@@ -1,4 +1,4 @@
-#ifndef WINDOWFILTER_H
+﻿#ifndef WINDOWFILTER_H
 #define WINDOWFILTER_H
 
 #include <QObject>
@@ -37,3 +37,4 @@ private:
 };
 
 #endif // WINDOWFILTER_H
+

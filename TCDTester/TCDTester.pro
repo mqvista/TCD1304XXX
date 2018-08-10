@@ -18,7 +18,6 @@ SOURCES += main.cpp
 
 win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../TCD1304XXX/release/ -lTCD1304XXX
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../TCD1304XXX/debug/ -lTCD1304XXX
-else:unix: LIBS += -L$$OUT_PWD/../TCD1304XXX/ -lTCD1304XXX
 
 INCLUDEPATH += $$PWD/../TCD1304XXX
 DEPENDPATH += $$PWD/../TCD1304XXX

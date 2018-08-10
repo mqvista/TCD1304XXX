@@ -67,8 +67,8 @@ contains(QT_ARCH, i386) {
     LIBS += -L$$PWD/GSL/win32/lib/ -lgslcblas
 }else {
     message("64-bit")
-    LIBS += -L$$PWD/GSL/win/lib/ -llibgsl
-    LIBS += -L$$PWD/GSL/win/lib/ -llibgslcblas
+    LIBS += -L$$PWD/GSL/win64/lib/ -lgsl
+    LIBS += -L$$PWD/GSL/win64/lib/ -lgslcblas
 }
 
 INCLUDEPATH += $$PWD/GSL/include/

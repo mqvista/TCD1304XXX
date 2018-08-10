@@ -1,9 +1,9 @@
-#include "ployfit.h"
+﻿#include "ployfit.h"
 #include <gsl/gsl_sf_bessel.h>
 #include <gsl/gsl_multifit.h>
 #include <gsl/gsl_cdf.h>
 
-PloyFit::PloyFit(QObject *parent) : QObject(parent)
+PloyFit::PloyFit()
 {
 
 }
@@ -65,3 +65,4 @@ double PloyFit::slove(double a, double b, double c, double x)
 {
     return a * pow(x, 2) + b * x + c;
 }
+
