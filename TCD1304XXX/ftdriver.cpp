@@ -1,6 +1,6 @@
-#include "ftdriver.h"
+﻿#include "ftdriver.h"
 
-FtDriver::FtDriver(QObject *parent) : QObject(parent)
+FtDriver::FtDriver()
 {
     m_SelectedDeviceNum = 0;
 }

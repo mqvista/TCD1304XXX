@@ -1,4 +1,4 @@
-#ifndef PLOYFIT_H
+﻿#ifndef PLOYFIT_H
 #define PLOYFIT_H
 
 #include <QObject>
@@ -6,17 +6,12 @@
 #include <math.h>
 
 
-class Q_DECL_EXPORT PloyFit : public QObject
+class Q_DECL_EXPORT PloyFit
 {
-    Q_OBJECT
 public:
-    explicit PloyFit(QObject *parent = nullptr);
+    explicit PloyFit();
     void calc(quint16 *dataX, quint16 *dataY, quint16 dataLength, quint8 polyN, double *value);
     double slove(double a, double b, double c, double x);
-
-signals:
-
-public slots:
 
 private:
 };

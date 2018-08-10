@@ -1,14 +1,13 @@
-#ifndef FTDRIVER_H
+﻿#ifndef FTDRIVER_H
 #define FTDRIVER_H
 
 #include <QObject>
 #include "D2XX/include/ftd2xx.h"
 
-class Q_DECL_EXPORT FtDriver : public QObject
+class Q_DECL_EXPORT FtDriver
 {
-    Q_OBJECT
 public:
-    explicit FtDriver(QObject *parent = nullptr);
+    explicit FtDriver();
     // List how manay devices are available
     // Param1 pointer numberDevices
     bool ListDevices(DWORD *numberDevices);

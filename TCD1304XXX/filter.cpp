@@ -1,6 +1,6 @@
-#include "filter.h"
+﻿#include "filter.h"
 
-Filter::Filter(QObject *parent) : QObject(parent)
+Filter::Filter()
 {
     uFilter = new UWindowFilter<quint32>[3648];
 }

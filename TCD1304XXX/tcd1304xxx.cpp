@@ -1,4 +1,4 @@
-#include "tcd1304xxx.h"
+﻿#include "tcd1304xxx.h"
 
 
 TCD1304XXX::TCD1304XXX():FtDriver(),ployWindowFilter(20)
@@ -227,3 +227,4 @@ void TCD1304XXX::FillHeadTail(quint16 length, quint16 value)
         m_RawData[3647-i] = value;
     }
 }
+

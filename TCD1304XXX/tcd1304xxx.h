@@ -1,4 +1,4 @@
-#ifndef TCD1304XXX_H
+﻿#ifndef TCD1304XXX_H
 #define TCD1304XXX_H
 
 #include "tcd1304xxx_global.h"
@@ -16,15 +16,15 @@ public:
     // If you are in running loop ,it will send the intergral time
     // after current cycle
     // Param1 intergral time from 1~100
-    __stdcall bool SetIntergral(const quint8 value);
+     bool SetIntergral(const quint8 value);
     // Get raw senser data
     // Param1 data[3648]
-    __stdcall bool GetRawData(quint16* data);
+     bool GetRawData(quint16* data);
     // Get the pixels after poly
-    __stdcall bool GetPolyData(double* pixels);
+     bool GetPolyData(double* pixels);
     // Set to enable or disable filter
-    __stdcall void setRawDataFilterFlag(bool flag);
-    __stdcall void setPloyDataFilterFlag(bool flag);
+     void setRawDataFilterFlag(bool flag);
+     void setPloyDataFilterFlag(bool flag);
 
 
 private:
@@ -59,5 +59,15 @@ private:
 
 
 };
+
+extern "C" __declspec(dllexport) TCD1304XXX* TCD1304Create() {return new TCD1304XXX();}
+extern "C" __declspec(dllexport) bool TCD1304XXX_OpenDevice(TCD1304XXX* pTCD1304XXX, DWORD value) {return pTCD1304XXX->OpenDevice(value);}
+extern "C" __declspec(dllexport) bool TCD1304XXX_CloseDevice(TCD1304XXX* pTCD1304XXX) {return pTCD1304XXX->CloseDevice();}
+extern "C" __declspec(dllexport) bool TCD1304XXX_SetIntergral(TCD1304XXX* pTCD1304XXX, quint8 value) {return pTCD1304XXX->SetIntergral(value);}
+extern "C" __declspec(dllexport) bool TCD1304XXX_GetPolyData(TCD1304XXX* pTCD1304XXX, double* pixels) {return pTCD1304XXX->GetPolyData(pixels);}
+extern "C" __declspec(dllexport) void TCD1304XXX_SetRawDataFilterFlag(TCD1304XXX* pTCD1304XXX, bool flag) {return pTCD1304XXX->setRawDataFilterFlag(flag);}
+extern "C" __declspec(dllexport) void TCD1304XXX_SetPloyDataFilterFlag(TCD1304XXX* pTCD1304XXX, bool flag) {return pTCD1304XXX->setPloyDataFilterFlag(flag);}
+
+
 
 #endif // TCD1304XXX_H
