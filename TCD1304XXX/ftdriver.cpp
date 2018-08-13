@@ -147,7 +147,7 @@ bool FtDriver::InitDevice()
         //qDebug()<< "ftdi init error 3";
         return false;
     }
-    m_FtStatus = FT_SetDataCharacteristics(m_FtHandle, FT_BITS_8 + FT_BITS_7, FT_STOP_BITS_1, FT_PARITY_NONE);
+    m_FtStatus = FT_SetDataCharacteristics(m_FtHandle, FT_BITS_8, FT_STOP_BITS_1, FT_PARITY_NONE);
     if (m_FtStatus != FT_OK) {
         //qDebug()<< "ftdi init error 4";
         return false;

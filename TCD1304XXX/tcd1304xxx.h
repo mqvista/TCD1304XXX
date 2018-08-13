@@ -55,9 +55,6 @@ private:
                       quint16* leftOffset, quint16* leftLength, quint16* rightOffset, quint16* rightLength);
     // Mask left and right where the laser can't touch
     void FillHeadTail(quint16 length, quint16 value);
-
-
-
 };
 
 extern "C" __declspec(dllexport) TCD1304XXX* TCD1304Create() {return new TCD1304XXX();}
