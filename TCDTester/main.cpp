@@ -22,17 +22,19 @@ int main(int argc, char *argv[])
     DWORD xxx;
     qDebug()<<tcd.ListDevices(&xxx);
     qDebug() << "list:" << xxx;
-    while (1)
+    quint8 i=0;
+    while (i<10)
     {
         //获取数据
-        if(!tcd.GetPolyData(&length))
-            qDebug() << "length" << length;
+        if(tcd.GetPolyData(&length))
+            qDebug() << "length:" << length;
         else
             qDebug() << "false";
+        i++;
     }
 
     // 关闭设备
-    tcd.CloseDevice();
+    qDebug()<< "Close:"<<tcd.CloseDevice();
     return a.exec();
 }
 
