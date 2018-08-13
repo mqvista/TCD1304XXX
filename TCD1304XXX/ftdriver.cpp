@@ -3,6 +3,7 @@
 FtDriver::FtDriver()
 {
     m_SelectedDeviceNum = 0;
+    m_IsOpened = false;
 }
 
 bool FtDriver::ListDevices(DWORD* numberDevices)
@@ -20,8 +21,8 @@ bool FtDriver::ListDevices(DWORD* numberDevices)
 bool FtDriver::OpenDevice(DWORD iDevice)
 {
     m_SelectedDeviceNum = iDevice;
-    FT_Close(m_FtHandle);
-    m_IsOpened = false;
+    //FT_Close(m_FtHandle);
+    //m_IsOpened = false;
 
     m_FtStatus = FT_Open(m_SelectedDeviceNum, &m_FtHandle);
     if (m_FtStatus == FT_OK)
@@ -41,7 +42,7 @@ bool FtDriver::OpenDevice(DWORD iDevice)
     else
     {
         FT_ResetDevice(m_FtHandle);
-        FT_Close(m_FtHandle);
+        //FT_Close(m_FtHandle);
         return false;
     }
 }

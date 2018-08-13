@@ -23,7 +23,7 @@ int main(int argc, char *argv[])
     qDebug()<<tcd.ListDevices(&xxx);
     qDebug() << "list:" << xxx;
     quint8 i=0;
-    while (i<10)
+    while (i<100)
     {
         //获取数据
         if(tcd.GetPolyData(&length))
