@@ -19,15 +19,16 @@ int main(int argc, char *argv[])
     tcd.setPloyDataFilterFlag(true);
 
 
-    qDebug() << tcd.GetPolyData(&length);
-    qDebug() << "length" << length;
+    DWORD xxx;
+    qDebug()<<tcd.ListDevices(&xxx);
+    qDebug() << "list:" << xxx;
     while (1)
     {
-        // 获取数据
+        //获取数据
         if(!tcd.GetPolyData(&length))
-            qDebug() << false;
-        else
             qDebug() << "length" << length;
+        else
+            qDebug() << "false";
     }
 
     // 关闭设备
