@@ -57,15 +57,15 @@ private:
     void FillHeadTail(quint16 length, quint16 value);
 };
 
-
-extern "C" __declspec(dllexport) TCD1304XXX* TCD1304Create() {return new TCD1304XXX();}
-extern "C" __declspec(dllexport) bool TCD1304XXX_OpenDevice(TCD1304XXX* pTCD1304XXX, DWORD value) {return pTCD1304XXX->OpenDevice(value);}
-extern "C" __declspec(dllexport) bool TCD1304XXX_CloseDevice(TCD1304XXX* pTCD1304XXX) {return pTCD1304XXX->CloseDevice();}
-extern "C" __declspec(dllexport) bool TCD1304XXX_SetIntergral(TCD1304XXX* pTCD1304XXX, quint8 value) {return pTCD1304XXX->SetIntergral(value);}
-extern "C" __declspec(dllexport) bool TCD1304XXX_GetPolyData(TCD1304XXX* pTCD1304XXX, double* pixels) {return pTCD1304XXX->GetPolyData(pixels);}
-extern "C" __declspec(dllexport) void TCD1304XXX_SetRawDataFilterFlag(TCD1304XXX* pTCD1304XXX, bool flag) {return pTCD1304XXX->setRawDataFilterFlag(flag);}
-extern "C" __declspec(dllexport) void TCD1304XXX_SetPloyDataFilterFlag(TCD1304XXX* pTCD1304XXX, bool flag) {return pTCD1304XXX->setPloyDataFilterFlag(flag);}
-
+#if defined(Q_OS_WIN)
+    extern "C" __declspec(dllexport) TCD1304XXX* TCD1304Create() {return new TCD1304XXX();}
+    extern "C" __declspec(dllexport) bool TCD1304XXX_OpenDevice(TCD1304XXX* pTCD1304XXX, DWORD value) {return pTCD1304XXX->OpenDevice(value);}
+    extern "C" __declspec(dllexport) bool TCD1304XXX_CloseDevice(TCD1304XXX* pTCD1304XXX) {return pTCD1304XXX->CloseDevice();}
+    extern "C" __declspec(dllexport) bool TCD1304XXX_SetIntergral(TCD1304XXX* pTCD1304XXX, quint8 value) {return pTCD1304XXX->SetIntergral(value);}
+    extern "C" __declspec(dllexport) bool TCD1304XXX_GetPolyData(TCD1304XXX* pTCD1304XXX, double* pixels) {return pTCD1304XXX->GetPolyData(pixels);}
+    extern "C" __declspec(dllexport) void TCD1304XXX_SetRawDataFilterFlag(TCD1304XXX* pTCD1304XXX, bool flag) {return pTCD1304XXX->setRawDataFilterFlag(flag);}
+    extern "C" __declspec(dllexport) void TCD1304XXX_SetPloyDataFilterFlag(TCD1304XXX* pTCD1304XXX, bool flag) {return pTCD1304XXX->setPloyDataFilterFlag(flag);}
+#endif
 
 
 #endif // TCD1304XXX_H

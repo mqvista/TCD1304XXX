@@ -82,7 +82,7 @@ bool FtDriver::SendData(QString data)
     if (m_FtStatus == FT_OK) {
         return true;
     }
-    CloseDevice();
+    //CloseDevice();
     return false;
 }
 
@@ -118,7 +118,7 @@ bool FtDriver::GetData(quint16 *data)
 
         if (error_loop >= 10)
         {
-            CloseDevice();
+            //CloseDevice();
             return false;
         }
         if (currentPoint >= 7296)
