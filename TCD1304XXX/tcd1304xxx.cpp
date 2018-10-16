@@ -10,8 +10,8 @@ TCD1304XXX::TCD1304XXX():FtDriver(),ployWindowFilter(20)
     m_PloyDataFilterFlag = false;
     m_MinThreshold = 20000;
     m_MaxThreshold = 40000;
-    m_FillLength = 50;
-    m_FillValue = 48000;
+    m_FillLength = 0;
+    m_FillValue = 0;
 }
 
 bool TCD1304XXX::SetIntergral(const quint8 value)
@@ -60,7 +60,7 @@ bool TCD1304XXX::GetPolyData(double *pixels)
         return false;
     if (! GetData(m_RawData))
         return false;
-    // Fill pixels
+    // Fill pixels (填充激光无法照射到)
     FillHeadTail(m_FillLength, m_FillValue);
 
     // 窗口滤波原始数据
@@ -153,6 +153,12 @@ void TCD1304XXX::setPloyDataFilterFlag(bool flag)
     m_PloyDataFilterFlag = flag;
 }
 
+void TCD1304XXX::setMaskPixel(quint16 maskLength, quint16 maskValue)
+{
+    m_FillLength = maskLength;
+    m_FillValue = maskValue;
+}
+
 bool TCD1304XXX::RawFilter(bool flag)
 {
     m_RawDataFilterFlag = flag;
@@ -221,6 +227,8 @@ void TCD1304XXX::GetLeftRight(quint16 *senserData, quint16 minCutValue, quint16 
 
 void TCD1304XXX::FillHeadTail(quint16 length, quint16 value)
 {
+    if (length == 0)
+        return;
     for(quint16 i=0; i<length; i++)
     {
         m_RawData[i] = value;

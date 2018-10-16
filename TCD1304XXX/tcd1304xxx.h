@@ -16,15 +16,17 @@ public:
     // If you are in running loop ,it will send the intergral time
     // after current cycle
     // Param1 intergral time from 1~100
-     bool SetIntergral(const quint8 value);
+    bool SetIntergral(const quint8 value);
     // Get raw senser data
     // Param1 data[3648]
-     bool GetRawData(quint16* data);
+    bool GetRawData(quint16* data);
     // Get the pixels after poly
-     bool GetPolyData(double* pixels);
+    bool GetPolyData(double* pixels);
     // Set to enable or disable filter
-     void setRawDataFilterFlag(bool flag);
-     void setPloyDataFilterFlag(bool flag);
+    void setRawDataFilterFlag(bool flag);
+    void setPloyDataFilterFlag(bool flag);
+    // Set to mask pixel, according the device
+    void setMaskPixel(quint16 maskLength, quint16 maskValue);
 
 
 private:
@@ -65,6 +67,7 @@ private:
     extern "C" __declspec(dllexport) bool TCD1304XXX_GetPolyData(TCD1304XXX* pTCD1304XXX, double* pixels) {return pTCD1304XXX->GetPolyData(pixels);}
     extern "C" __declspec(dllexport) void TCD1304XXX_SetRawDataFilterFlag(TCD1304XXX* pTCD1304XXX, bool flag) {return pTCD1304XXX->setRawDataFilterFlag(flag);}
     extern "C" __declspec(dllexport) void TCD1304XXX_SetPloyDataFilterFlag(TCD1304XXX* pTCD1304XXX, bool flag) {return pTCD1304XXX->setPloyDataFilterFlag(flag);}
+    extren "C" __declspec(dllexport) void TCD1304XXX_SetMaskPixel(TCD1304XXX* pTCD1304XXX, quint16 maskLength, quint16 maskValue) {return pTCD1304XXX->setMaskPixel(maskLength, maskValue);}
 #endif
 
 
