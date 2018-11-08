@@ -6,7 +6,7 @@ FtDriver::FtDriver()
     m_IsOpened = false;
 }
 
-bool FtDriver::ListDevices(DWORD* numberDevices)
+bool FtDriver::GetDeviceList(DWORD* numberDevices)
 {
     m_FtStatus = FT_CreateDeviceInfoList(&m_NumberDevices);
     if (m_FtStatus == FT_OK)
@@ -17,6 +17,31 @@ bool FtDriver::ListDevices(DWORD* numberDevices)
     else
         return false;
 }
+
+bool FtDriver::GetDeviceListInfo(DWORD numberDevices, DEVICE_LIST_INFO_NODE *device_node)
+{
+    if (numberDevices >0)
+    {
+        FT_DEVICE_LIST_INFO_NODE *devInfo;
+        devInfo = (FT_DEVICE_LIST_INFO_NODE*)malloc(sizeof (FT_DEVICE_LIST_INFO_NODE)*m_NumberDevices);
+        m_FtStatus = FT_GetDeviceInfoList(devInfo, &m_NumberDevices);
+        if (m_FtStatus == FT_OK)
+        {
+            for (quint8 i=0; i< m_NumberDevices; i++)
+            {
+                memcpy(device_node[i].Description, devInfo[i].Description, 64);
+                memcpy(device_node[i].SerialNumber, devInfo[i].SerialNumber, 16);
+                device_node[i].ID = devInfo[i].ID;
+                device_node[i].LocId = devInfo[i].LocId;
+                device_node[i].Type = devInfo[i].Type;
+            }
+            return true;
+        }
+        return false;
+    }
+    return false;
+}
+
 
 bool FtDriver::OpenDevice(DWORD iDevice)
 {
@@ -135,6 +160,8 @@ bool FtDriver::GetData(quint16 *data)
     }
     return true;
 }
+
+
 
 bool FtDriver::InitDevice()
 {
