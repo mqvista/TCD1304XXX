@@ -17,20 +17,7 @@ int main(int argc, char *argv[])
     //
     DWORD devNums;
     qDebug()<<tcd.GetDeviceList(&devNums);
-    TCD1304XXX::DEVICE_LIST_INFO_NODE *node;
-    node = (TCD1304XXX::DEVICE_LIST_INFO_NODE*)malloc(sizeof (TCD1304XXX::DEVICE_LIST_INFO_NODE)*devNums);
-    if( tcd.GetDeviceListInfo(devNums, node) )
-    {
-        for (quint8 i=0; i<devNums; i++)
-        {
-            qDebug()<< "Dev:" << i;
-            qDebug()<< node[i].LocId;
-            qDebug()<< node[i].Type;
-            qDebug()<< node[i].SerialNumber;
-            qDebug()<< node[i].ID;
-        }
-    }
-
+    char *asd = tcd.GetDeviceListSerialNum(devNums);
 
 
 

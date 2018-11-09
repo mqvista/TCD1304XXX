@@ -9,39 +9,50 @@ FtDriver::FtDriver()
 bool FtDriver::GetDeviceList(DWORD* numberDevices)
 {
     m_FtStatus = FT_CreateDeviceInfoList(&m_NumberDevices);
-    if (m_FtStatus == FT_OK)
-    {
+    if (m_FtStatus == FT_OK) {
         *numberDevices = m_NumberDevices;
         return true;
-    }
-    else
+    } else
         return false;
 }
 
-bool FtDriver::GetDeviceListInfo(DWORD numberDevices, DEVICE_LIST_INFO_NODE *device_node)
+//std::string FtDriver::GetDeviceListSerialNum(DWORD numberDevices)
+//{
+//    std::string tempString;
+//    FT_DEVICE_LIST_INFO_NODE* devInfo;
+//    devInfo = (FT_DEVICE_LIST_INFO_NODE*)malloc(sizeof(FT_DEVICE_LIST_INFO_NODE) * m_NumberDevices);
+//    m_FtStatus = FT_GetDeviceInfoList(devInfo, &m_NumberDevices);
+//    if (m_FtStatus == FT_OK) {
+//        for (quint8 i = 0; i < numberDevices; i++) {
+//            tempString += devInfo[i].SerialNumber;
+//            tempString += "#";
+//        }
+//    }
+//    free(devInfo);
+//    return tempString;
+//}
+
+char *FtDriver::GetDeviceListSerialNum(DWORD numberDevices)
 {
-    if (numberDevices >0)
+    static char tempString[128];
+    FT_DEVICE_LIST_INFO_NODE* devInfo;
+    devInfo = (FT_DEVICE_LIST_INFO_NODE*)malloc(sizeof(FT_DEVICE_LIST_INFO_NODE) * m_NumberDevices);
+    m_FtStatus = FT_GetDeviceInfoList(devInfo, &m_NumberDevices);
+    if (m_FtStatus == FT_OK)
     {
-        FT_DEVICE_LIST_INFO_NODE *devInfo;
-        devInfo = (FT_DEVICE_LIST_INFO_NODE*)malloc(sizeof (FT_DEVICE_LIST_INFO_NODE)*m_NumberDevices);
-        m_FtStatus = FT_GetDeviceInfoList(devInfo, &m_NumberDevices);
-        if (m_FtStatus == FT_OK)
+        for (quint8 i = 0; i < numberDevices; i++)
         {
-            for (quint8 i=0; i< m_NumberDevices; i++)
-            {
-                memcpy(device_node[i].Description, devInfo[i].Description, 64);
-                memcpy(device_node[i].SerialNumber, devInfo[i].SerialNumber, 16);
-                device_node[i].ID = devInfo[i].ID;
-                device_node[i].LocId = devInfo[i].LocId;
-                device_node[i].Type = devInfo[i].Type;
-            }
-            return true;
+            memcpy(tempString + (i*8) + i, devInfo[i].SerialNumber, 8);
+            tempString[(i+1)*8+i] = '#';
         }
-        return false;
+        // 末尾+ '\0'
+        tempString[numberDevices * 8 + numberDevices] = '\0';
     }
-    return false;
-}
+    return tempString;
 
+    // 0, 17, 34, 51
+    //    16, 33, 50
+}
 
 bool FtDriver::OpenDevice(DWORD iDevice)
 {
@@ -50,22 +61,16 @@ bool FtDriver::OpenDevice(DWORD iDevice)
     //m_IsOpened = false;
 
     m_FtStatus = FT_Open(m_SelectedDeviceNum, &m_FtHandle);
-    if (m_FtStatus == FT_OK)
-    {
-        if (InitDevice())
-        {
+    if (m_FtStatus == FT_OK) {
+        if (InitDevice()) {
             m_IsOpened = true;
             return true;
-        }
-        else
-        {
+        } else {
             FT_ResetDevice(m_FtHandle);
             FT_Close(m_FtHandle);
             return false;
         }
-    }
-    else
-    {
+    } else {
         FT_ResetDevice(m_FtHandle);
         //FT_Close(m_FtHandle);
         return false;
@@ -75,13 +80,10 @@ bool FtDriver::OpenDevice(DWORD iDevice)
 bool FtDriver::CloseDevice()
 {
     m_FtStatus = FT_Close(m_FtHandle);
-    if (m_FtStatus == FT_OK)
-    {
+    if (m_FtStatus == FT_OK) {
         m_IsOpened = false;
         return true;
-    }
-    else
-    {
+    } else {
         m_IsOpened = false;
         return false;
     }
@@ -89,12 +91,9 @@ bool FtDriver::CloseDevice()
 
 bool FtDriver::SendData(QString data)
 {
-    if (!m_IsOpened)
-    {
-        if(!OpenDevice(m_SelectedDeviceNum))
-        {
-            if(!InitDevice())
-            {
+    if (!m_IsOpened) {
+        if (!OpenDevice(m_SelectedDeviceNum)) {
+            if (!InitDevice()) {
                 return false;
             }
         }
@@ -111,14 +110,11 @@ bool FtDriver::SendData(QString data)
     return false;
 }
 
-bool FtDriver::GetData(quint16 *data)
+bool FtDriver::GetData(quint16* data)
 {
-    if (!m_IsOpened)
-    {
-        if(!OpenDevice(m_SelectedDeviceNum))
-        {
-            if(!InitDevice())
-            {
+    if (!m_IsOpened) {
+        if (!OpenDevice(m_SelectedDeviceNum)) {
+            if (!InitDevice()) {
                 return false;
             }
         }
@@ -128,40 +124,31 @@ bool FtDriver::GetData(quint16 *data)
     quint16 currentPoint = 0;
     quint8 error_loop = 0;
 
-    FT_SetTimeouts(m_FtHandle,100,0);
-    while (loopFlag)
-    {
-        m_FtStatus = FT_Read(m_FtHandle, (quint8*)(m_RxBuffer+currentPoint), 128, &m_Bytereceived);
-        if ((m_FtStatus == FT_OK) && (m_Bytereceived >0))
-        {
+    FT_SetTimeouts(m_FtHandle, 100, 0);
+    while (loopFlag) {
+        m_FtStatus = FT_Read(m_FtHandle, (quint8*)(m_RxBuffer + currentPoint), 128, &m_Bytereceived);
+        if ((m_FtStatus == FT_OK) && (m_Bytereceived > 0)) {
             currentPoint += m_Bytereceived;
-        }
-        else
-        {
+        } else {
             error_loop++;
         }
 
-        if (error_loop >= 10)
-        {
+        if (error_loop >= 10) {
             //CloseDevice();
             return false;
         }
-        if (currentPoint >= 7296)
-        {
+        if (currentPoint >= 7296) {
             loopFlag = false;
         }
     }
 
-    for(quint16 i=0; i<3648; i++)
-    {
+    for (quint16 i = 0; i < 3648; i++) {
         quint16 tmpData;
-        tmpData = (m_RxBuffer[i*2] << 8) | m_RxBuffer[i*2+1];
+        tmpData = (m_RxBuffer[i * 2] << 8) | m_RxBuffer[i * 2 + 1];
         data[i] = tmpData;
     }
     return true;
 }
-
-
 
 bool FtDriver::InitDevice()
 {

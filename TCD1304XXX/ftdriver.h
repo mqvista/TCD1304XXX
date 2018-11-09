@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include "D2XX/include/ftd2xx.h"
+//#include <string>
 
 class Q_DECL_EXPORT FtDriver
 {
@@ -20,20 +21,11 @@ public:
     bool SendData(QString data);
     // Get data from device
     bool GetData(quint16 *data);
+    // Get Device SerialNumber
+    //std::string GetDeviceListSerialNum(DWORD numberDevices);
+    // Type 2
+    char * GetDeviceListSerialNum(DWORD numberDevices);
 
-    //
-    // Device information
-    //
-
-    typedef struct _device_list_info_node {
-        ULONG Type;
-        ULONG ID;
-        DWORD LocId;
-        char SerialNumber[16];
-        char Description[64];
-    } DEVICE_LIST_INFO_NODE;
-
-    bool GetDeviceListInfo(DWORD numberDevices, DEVICE_LIST_INFO_NODE *device_node);
 
 
 signals:
