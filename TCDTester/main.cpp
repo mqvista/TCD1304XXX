@@ -1,9 +1,6 @@
 ﻿#include <QCoreApplication>
 #include <QDebug>
-#include <QTimer>
-#include <QDateTime>
 #include "tcd1304xxx.h"
-//#include "ftdriver.h"
 
 
 int main(int argc, char *argv[])
@@ -14,7 +11,6 @@ int main(int argc, char *argv[])
     double length;
     TCD1304XXX tcd;
 
-    //
     DWORD devNums;
     qDebug()<<tcd.GetDeviceList(&devNums);
     char *asd = tcd.GetDeviceListSerialNum(devNums);
@@ -35,7 +31,6 @@ int main(int argc, char *argv[])
 
     while (true)
     {
-        qDebug()<< "time1" << QTime::currentTime();
 
         //获取数据
         if(tcd.GetPolyData(&length))
@@ -43,7 +38,6 @@ int main(int argc, char *argv[])
         else
             qDebug() << "false";
 
-        qDebug()<< "time2" << QTime::currentTime();
     }
 
     // 关闭设备

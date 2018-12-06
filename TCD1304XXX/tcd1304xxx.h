@@ -68,7 +68,7 @@ private:
     extern "C" __declspec(dllexport) void TCD1304XXX_SetRawDataFilterFlag(TCD1304XXX* pTCD1304XXX, bool flag) {return pTCD1304XXX->setRawDataFilterFlag(flag);}
     extern "C" __declspec(dllexport) void TCD1304XXX_SetPloyDataFilterFlag(TCD1304XXX* pTCD1304XXX, bool flag) {return pTCD1304XXX->setPloyDataFilterFlag(flag);}
     extern "C" __declspec(dllexport) void TCD1304XXX_SetMaskPixel(TCD1304XXX* pTCD1304XXX, quint16 maskLength, quint16 maskValue) {return pTCD1304XXX->setMaskPixel(maskLength, maskValue);}
-    extern "C" __declspec(dllexport) bool TCD1304XXX_GetDeviceList(TCD1304XXX* pTCD1304XXX, DWORD *numberDevices) {return pTCD1304XXX->GetDeviceList(&numberDevices);}
+    extern "C" __declspec(dllexport) bool TCD1304XXX_GetDeviceList(TCD1304XXX* pTCD1304XXX, DWORD *numberDevices) {return pTCD1304XXX->GetDeviceList(numberDevices);}
     extern "C" __declspec(dllexport) char* TCD1304XXX_GetDeviceListSerialNum(TCD1304XXX* pTCD1304XXX, DWORD devNums) {return pTCD1304XXX->GetDeviceListSerialNum(devNums);}
 #endif
 

@@ -62,14 +62,11 @@ macx: LIBS += -L$$PWD/GSL/mac/lib/ -lgsl.23
 macx: LIBS += -L$$PWD/GSL/mac/lib/ -lgslcblas
 # for windows
 contains(QT_ARCH, i386) {
-    message("32-bit")
-    LIBS += -L$$PWD/GSL/win32/lib/ -lgsl
-    LIBS += -L$$PWD/GSL/win32/lib/ -lgslcblas
+    LIBS += -L$$PWD/GSL/win32/lib/ -llibgsl
+    LIBS += -L$$PWD/GSL/win32/lib/ -llibgslcblas
 }else {
-    message("64-bit")
     LIBS += -L$$PWD/GSL/win64/lib/ -lgsl
     LIBS += -L$$PWD/GSL/win64/lib/ -lgslcblas
 }
-
 INCLUDEPATH += $$PWD/GSL/include/
 DEPENDPATH += $$PWD/GSL/include/
