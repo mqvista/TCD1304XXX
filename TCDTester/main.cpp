@@ -12,9 +12,10 @@ int main(int argc, char *argv[])
     TCD1304XXX tcd;
 
     DWORD devNums;
-    qDebug()<<tcd.GetDeviceList(&devNums);
+    tcd.GetDeviceList(&devNums);
     char *asd = tcd.GetDeviceListSerialNum(devNums);
-
+    qDebug() << "Devices:" << devNums;
+    qDebug() << "SerialNums:" << asd;
 
 
 

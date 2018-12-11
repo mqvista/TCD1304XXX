@@ -153,6 +153,9 @@ void TCD1304XXX::setPloyDataFilterFlag(bool flag)
     m_PloyDataFilterFlag = flag;
 }
 
+// 設定CCD像素這遮罩
+// 參數一 遮罩像素的數量 一般為5個像素點
+// 參數二 遮罩的像素adc數值 一般為48000
 void TCD1304XXX::setMaskPixel(quint16 maskLength, quint16 maskValue)
 {
     m_FillLength = maskLength;
