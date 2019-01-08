@@ -21,16 +21,10 @@ public:
     bool SendData(QString data);
     // Get data from device
     bool GetData(quint16 *data);
-    // Get Device SerialNumber
-    //std::string GetDeviceListSerialNum(DWORD numberDevices);
     // Type 2
     char * GetDeviceListSerialNum(DWORD numberDevices);
-
-
-
-signals:
-
-public slots:
+    // Type 3
+    bool GetDeviceListSerialNum(QList<QString>* deviceList);
 
 private:
     FT_STATUS m_FtStatus;
@@ -40,12 +34,8 @@ private:
     bool m_IsOpened;
     DWORD m_Bytereceived;
     DWORD m_ByteWritten;
-    //quint32 m_RxBytes;
-    //quint32 m_TxBytes;
     quint8 m_RxBuffer[7300];
     quint8 m_TxBuffer[128];
-
-
     bool InitDevice();
 };
 

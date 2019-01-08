@@ -11,7 +11,7 @@ bool FtDriver::GetDeviceList(DWORD* numberDevices)
     m_FtStatus = FT_CreateDeviceInfoList(&m_NumberDevices);
     if (m_FtStatus == FT_OK) {
         *numberDevices = m_NumberDevices;
-        return true;
+                return true;
     } else
         return false;
 }
@@ -36,6 +36,31 @@ char *FtDriver::GetDeviceListSerialNum(DWORD numberDevices)
 
     // 0, 17, 34, 51
     //    16, 33, 50
+}
+
+bool FtDriver::GetDeviceListSerialNum(QList<QString> *deviceList)
+{
+    // First get how many devices is connect in your pc
+    m_FtStatus = FT_CreateDeviceInfoList(&m_NumberDevices);
+    if (m_FtStatus == FT_OK) {
+        return true;
+    } else
+        return false;
+
+    // Then append the device serialNumber in QList pointer
+    deviceList->clear();
+    FT_DEVICE_LIST_INFO_NODE* devInfo;
+    devInfo = (FT_DEVICE_LIST_INFO_NODE*)malloc(sizeof(FT_DEVICE_LIST_INFO_NODE) * m_NumberDevices);
+    m_FtStatus = FT_GetDeviceInfoList(devInfo, &m_NumberDevices);
+    if (m_FtStatus == FT_OK)
+    {
+        for (quint8 i = 0; i < m_NumberDevices; i++)
+        {
+            deviceList->append(devInfo[i].SerialNumber);
+        }
+        return true;
+    }
+    return false;
 }
 
 bool FtDriver::OpenDevice(DWORD iDevice)

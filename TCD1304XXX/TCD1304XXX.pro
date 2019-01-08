@@ -34,7 +34,8 @@ HEADERS += \
     ployfit.h \
     ftdriver.h \
     filter.h \
-    windowfilter.h
+    windowfilter.h \
+    tcd1304++++.h
 
 unix {
     target.path = /usr/lib
