@@ -35,13 +35,11 @@ Window {
                 anchors.verticalCenterOffset: parent.height * -0.3
                 anchors.left: deviceNameSenser01.right
                 anchors.leftMargin: 10
-                model: ListModel{
-                    ListElement {test: "123"}
-                }
+                model: UserInterfaceModule.senser01List
                 onPressedChanged: {
                     if (!comboBoxSenser01.pressed)
                     {
-                        UserModule.getSenser1List();
+                        UserInterfaceModule.getSenser01List();
                     }
 
                 }
@@ -49,6 +47,7 @@ Window {
 
             Button {
                 id: buttonOpenSenser01
+                objectName: "buttonOpenSenser01"
                 text: "Open"
                 font.pointSize: 22
                 anchors.verticalCenterOffset: parent.height * -0.3
@@ -56,28 +55,40 @@ Window {
                 anchors.left: comboBoxSenser01.right
                 anchors.leftMargin: 10
                 onReleased: {
-
+                    if (comboBoxSenser01.currentText != "" && buttonOpenSenser01.text == "Open")
+                    {
+                        console.log(comboBoxSenser01.currentIndex)
+                        UserInterfaceModule.openSenser01(comboBoxSenser01.currentIndex);
+                    }
+                    else if (buttonOpenSenser01.text == "Close")
+                    {
+                        UserInterfaceModule.closeSenser01();
+                    }
                 }
             }
 
             Text {
-                id: textSenser01ValueName
-                text: qsTr("Value:")
+                id: intergralTimeSenser01
+                text: qsTr("Intergral:")
                 font.pointSize: 22
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.verticalCenterOffset: parent.height * -0.3
                 anchors.left: buttonOpenSenser01.right
-                anchors.leftMargin: 100
+                anchors.leftMargin: 40
             }
 
-            Text {
-                id: textSenser01ValueShow
-                text: qsTr("0")
+            SpinBox {
+                id: spinBoxSenser01
+                value: 1
                 font.pointSize: 22
-                anchors.verticalCenter: parent.verticalCenter
                 anchors.verticalCenterOffset: parent.height * -0.3
-                anchors.left: textSenser01ValueName.right
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.left: intergralTimeSenser01.right
                 anchors.leftMargin: 10
+                onValueChanged: {
+                    UserInterfaceModule.setSenser01Intergral(spinBoxSenser01.value)
+                }
+
             }
 
             Text {
@@ -90,7 +101,7 @@ Window {
 
             Text {
                 id: textSenser01CostTimeValue
-                text: qsTr("0")
+                text: UserInterfaceModule.senser01CostTime + "ms"
                 font.pointSize: 22
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.verticalCenterOffset: parent.height * 0.3
@@ -110,13 +121,51 @@ Window {
 
             Text {
                 id: textSenser01CostMaxTimeValue
-                text: qsTr("0")
+                text: UserInterfaceModule.senser01MaxCostTime + "ms"
                 font.pointSize: 22
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.verticalCenterOffset: parent.height * 0.3
                 anchors.left: textSenser01CostMaxTime.right
                 anchors.leftMargin: 10
             }
+
+            Text {
+                id: textSenser01ValueName
+                text: qsTr("Value:")
+                font.pointSize: 22
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.verticalCenterOffset: parent.height * 0.3
+                anchors.left: textSenser01CostMaxTime.right
+                anchors.leftMargin: 100
+            }
+
+            Text {
+                id: textSenser01ValueShow
+                text: UserInterfaceModule.senser01PixelLength
+                font.pointSize: 22
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.verticalCenterOffset: parent.height * 0.3
+                anchors.left: textSenser01ValueName.right
+                anchors.leftMargin: 10
+            }
+
+            Text {
+                id: textSenser01CostTimesName
+                text: qsTr("ErrorTimes:")
+                font.pointSize: 22
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.leftMargin: 100
+            }
+
+            Text {
+                id: textSenser01CostTimesValue
+                text: UserInterfaceModule.senser01ErrorTimes
+                font.pointSize: 22
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.left: textSenser01CostTimesName.right
+                anchors.leftMargin: 10
+            }
+
         }
 
         GroupBox {
@@ -139,38 +188,71 @@ Window {
                 anchors.verticalCenterOffset: parent.height * -0.3
                 anchors.left: deviceNameSenser02.right
                 anchors.leftMargin: 10
+                model: UserInterfaceModule.senser02List
+                onPressedChanged: {
+                    if (!comboBoxSenser02.pressed)
+                    {
+                        UserInterfaceModule.getSenser02List();
+                    }
+                    if (comboBoxSenser02.pressed)
+                    {
+                        if (comboBoxSenser01.currentIndex == comboBoxSenser02.currentIndex)
+                        {
+                            comboBoxSenser02.currentIndex = -1
+                        }
+                    }
+
+                }
 
             }
 
             Button {
                 id: buttonOpenSenser02
+                objectName: "buttonOpenSenser02"
                 text: "Open"
                 font.pointSize: 22
                 anchors.verticalCenterOffset: parent.height * -0.3
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.left: comboBoxSenser02.right
                 anchors.leftMargin: 10
+                onReleased: {
+                    if (comboBoxSenser02.currentText != "" && buttonOpenSenser02.text == "Open")
+                    {
+                        console.log(comboBoxSenser02.currentIndex)
+                        UserInterfaceModule.openSenser02(comboBoxSenser02.currentIndex);
+                    }
+                    else if (buttonOpenSenser02.text == "Close")
+                    {
+                        UserInterfaceModule.closeSenser02()
+                    }
+                }
             }
 
             Text {
-                id: textSenser02ValueName
-                text: qsTr("Value:")
+                id: intergralTimeSenser02
+                text: qsTr("Intergral:")
                 font.pointSize: 22
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.verticalCenterOffset: parent.height * -0.3
                 anchors.left: buttonOpenSenser02.right
-                anchors.leftMargin: 100
+                anchors.leftMargin: 40
             }
 
-            Text {
-                id: textSenser02ValueShow
-                text: qsTr("0")
+            SpinBox {
+                id: spinBoxSenser02
+                value: 1
                 font.pointSize: 22
-                anchors.verticalCenter: parent.verticalCenter
                 anchors.verticalCenterOffset: parent.height * -0.3
-                anchors.left: textSenser02ValueName.right
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.left: intergralTimeSenser02.right
                 anchors.leftMargin: 10
+                onValueChanged: {
+                    UserInterfaceModule.setSenser02Intergral(spinBoxSenser01.value)
+                }
+
             }
+
+
 
             Text {
                 id: textSenser02CostTime
@@ -182,7 +264,7 @@ Window {
 
             Text {
                 id: textSenser02CostTimeValue
-                text: qsTr("0")
+                text: UserInterfaceModule.senser02CostTime + "ms"
                 font.pointSize: 22
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.verticalCenterOffset: parent.height * 0.3
@@ -202,13 +284,64 @@ Window {
 
             Text {
                 id: textSenser02CostMaxTimeValue
-                text: qsTr("0")
+                text: UserInterfaceModule.senser02MaxCostTime + "ms"
                 font.pointSize: 22
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.verticalCenterOffset: parent.height * 0.3
                 anchors.left: textSenser02CostMaxTime.right
                 anchors.leftMargin: 10
             }
+
+            Text {
+                id: textSenser02ValueName
+                text: qsTr("Value:")
+                font.pointSize: 22
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.verticalCenterOffset: parent.height * 0.3
+                anchors.left: textSenser02CostMaxTime.right
+                anchors.leftMargin: 100
+            }
+
+            Text {
+                id: textSenser02ValueShow
+                text: UserInterfaceModule.senser02PixelLength
+                font.pointSize: 22
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.verticalCenterOffset: parent.height * 0.3
+                anchors.left: textSenser02ValueName.right
+                anchors.leftMargin: 10
+            }
+
+            Text {
+                id: textSenser02CostTimesName
+                text: qsTr("ErrorTimes:")
+                font.pointSize: 22
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.leftMargin: 100
+            }
+
+            Text {
+                id: textSenser02CostTimesValue
+                text: UserInterfaceModule.senser02ErrorTimes
+                font.pointSize: 22
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.left: textSenser02CostTimesName.right
+                anchors.leftMargin: 10
+            }
         }
     }
 }
+
+
+
+
+
+
+
+
+
+/*##^## Designer {
+    D{i:159;invisible:true}D{i:160;invisible:true}D{i:161;invisible:true}D{i:162;invisible:true}
+D{i:163;invisible:true}
+}
+ ##^##*/

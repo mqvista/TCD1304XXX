@@ -5,8 +5,9 @@
 #include <QThread>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
-#include "userinterfacemodule.h"
+#include "usermodule.h"
 #include "senser01worker.h"
+#include "senser02worker.h"
 
 class Service : public QObject
 {
@@ -24,7 +25,9 @@ private:
     QQmlApplicationEngine* m_Engine;
     Senser01Worker m_Senser01Worker;
     QThread m_Senser01Thread;
-    UserInterfaceModule m_UserInterfaceModule;
+    Senser02Worker m_Senser02Worker;
+    QThread m_Senser02Thread;
+    UserModule m_UserMoudle;
 };
 
 #endif // SERVICE_H

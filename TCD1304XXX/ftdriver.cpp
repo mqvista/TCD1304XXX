@@ -42,10 +42,9 @@ bool FtDriver::GetDeviceListSerialNum(QList<QString> *deviceList)
 {
     // First get how many devices is connect in your pc
     m_FtStatus = FT_CreateDeviceInfoList(&m_NumberDevices);
-    if (m_FtStatus == FT_OK) {
-        return true;
-    } else
+    if (m_FtStatus != FT_OK) {
         return false;
+    }
 
     // Then append the device serialNumber in QList pointer
     deviceList->clear();
@@ -117,7 +116,7 @@ bool FtDriver::GetData(quint16* data)
     bool loopFlag = true;
     quint16 currentPoint = 0;
 
-    FT_SetTimeouts(m_FtHandle, 100, 0);
+    FT_SetTimeouts(m_FtHandle, 80, 0);
     while (loopFlag) {
         m_FtStatus = FT_Read(m_FtHandle, (quint8*)(m_RxBuffer + currentPoint), 128, &m_Bytereceived);
         if (m_FtStatus != FT_OK)

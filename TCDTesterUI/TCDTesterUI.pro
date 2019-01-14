@@ -1,5 +1,7 @@
 QT += quick
 CONFIG += c++11
+CONFIG+=sdk_no_version_check
+
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which as been marked deprecated (the exact warnings
@@ -14,10 +16,10 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         main.cpp \
-    userinterfacemodule.cpp \
     senser02worker.cpp \
     senser01worker.cpp \
-    service.cpp
+    service.cpp \
+    usermodule.cpp
 
 RESOURCES += qml.qrc
 
@@ -40,7 +42,7 @@ INCLUDEPATH += $$PWD/../TCD1304XXX
 DEPENDPATH += $$PWD/../TCD1304XXX
 
 HEADERS += \
-    userinterfacemodule.h \
     senser02worker.h \
     senser01worker.h \
-    service.h
+    service.h \
+    usermodule.h
