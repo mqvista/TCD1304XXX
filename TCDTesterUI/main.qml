@@ -323,6 +323,7 @@ Window {
             Text {
                 id: textSenser02CostTimesValue
                 text: UserInterfaceModule.senser02ErrorTimes
+                font.strikeout: true
                 font.pointSize: 22
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.left: textSenser02CostTimesName.right

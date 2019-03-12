@@ -1,7 +1,7 @@
 ﻿#include "tcd1304xxx.h"
 
 
-TCD1304XXX::TCD1304XXX():FtDriver(),ployWindowFilter(20)
+TCD1304XXX::TCD1304XXX():FtDriver(),ployWindowFilter(10)
 {
     m_IsRunning = false;
     m_NeedtoUpdate = false;
